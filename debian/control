@@ -1,0 +1,14 @@
+Source: sshtunnel
+Section: net
+Priority: optional
+Maintainer: Sergey Ponomarev <stokito@gmail.com>
+Homepage: https://github.com/yurt-page/sshtunnel
+Build-Depends: debhelper (>=10)
+Standards-Version: 4.1.4
+Rules-Requires-Root: no
+
+Package: sshtunnel
+Architecture: all
+Recommends: openssh-client | dropbear-bin
+Description: SSH tunnelling SystemD daemon.
+ Configure SSH tunnels and port forwardings.

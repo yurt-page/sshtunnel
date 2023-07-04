@@ -1,0 +1,6 @@
+/debian/sshtunnel/
+/debian/debhelper-build-stamp
+/debian/.debhelper/generated/
+/debian/files
+/debian/sshtunnel.postrm.debhelper
+/debian/sshtunnel.substvars

@@ -1,0 +1,11 @@
+[Service]
+RuntimeDirectory=sshtunnel
+ExecStart=/bin/sh /usr/bin/sshtunnel
+
+[Unit]
+Description=Establish SSH tunnels
+After=network.target
+StartLimitIntervalSec=0
+
+[Install]
+WantedBy=multi-user.target
