@@ -1,0 +1,10 @@
+[Service]
+ExecStart=/bin/sh /usr/bin/sshtunnel
+Restart=on-failure
+
+[Unit]
+Description=Establish SSH tunnels
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
