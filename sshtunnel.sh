@@ -8,12 +8,14 @@ _end_section() {
   num=$((num+=1))
   case $last_section_type in
     "S")
-      [ -z "$IdentityFile" ] && >&2 echo "server $section: no IdentityFile" && return 1
       [ -z "$Host" ] && >&2 echo "server $section: no Host" && return 1
-      [ -z "$Port" ] && >&2 echo "server $section: no Port" && return 1
-      [ -z "$User" ] && >&2 echo "server $section: no User" && return 1
-#      -o TCPKeepAlive=yes -o LogLevel=DEBUG
-      printf "%s" " -o StrictHostKeyChecking=accept-new -i $IdentityFile $User@$Host -p $Port" > "/tmp/sshtunnel-$section-0"
+      local ARGS="$Host"
+      [ -n "$User" ] && ARGS="$User@$ARGS"
+      [ -n "$Port" ] && ARGS="$ARGS -p $Port "
+      [ -n "$IdentityFile" ] && ARGS="$ARGS -i $IdentityFile"
+      StrictHostKeyChecking="${StrictHostKeyChecking:-accept-new}"
+      ARGS="$ARGS -o StrictHostKeyChecking=$StrictHostKeyChecking"
+      printf "%s" "$ARGS" > "/tmp/sshtunnel-$section"
       servers="$servers $section"
       ;;
     "R")
@@ -51,6 +53,19 @@ _end_section() {
       >&2 echo "unknown $last_section_type"
       ;;
   esac
+  Host=""
+  User=""
+  Port=""
+  IdentityFile=""
+  StrictHostKeyChecking=""
+  Server=""
+  RemoteAddress=""
+  RemotePort=""
+  LocalAddress=""
+  LocalPort=""
+  vpntype=""
+  localdev=""
+  remotedev=""
   return 0
 }
 
@@ -98,16 +113,20 @@ _ssh_connect() {
   do
     echo >&2 "connect to $ARGS"
     ssh $ARGS
-    echo >&2 "ssh failed with code $?. Retry with -N"
-    ssh $ARGS -N
-    sleep 10
+    echo >&2 "ssh exit code $?. Retry"
+    sleep 5
   done
 }
 
 for serv in $servers
 do
-  ARGS="$(cat /tmp/sshtunnel-$serv-*) -o ExitOnForwardFailure=yes -o BatchMode=yes -T"
-  _ssh_connect $ARGS &
+  ARGS="$(cat /tmp/sshtunnel-$serv-*)"
+  if [ -n "$ARGS" ]; then
+    ARGS="$(cat /tmp/sshtunnel-$serv) $ARGS -N -o ExitOnForwardFailure=yes -o BatchMode=yes -o ServerAliveInterval=60 -o ConnectionAttempts=5"
+    _ssh_connect $ARGS &
+  else
+    >&2 echo "server $serv: no tunnels"
+  fi
 done
 
 wait

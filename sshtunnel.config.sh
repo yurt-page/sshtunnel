@@ -8,7 +8,8 @@ server "example2"
   Host="example.com"
   Port=2
   User="root"
-  IdentityFile="/root/.ssh/id_ed25519"
+  IdentityFile="/root/.ssh/id_rsa"
+  StrictHostKeyChecking=yes
 
 tunnelR "http1"
   Server="example1"
