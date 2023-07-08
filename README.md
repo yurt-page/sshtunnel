@@ -59,3 +59,5 @@ Options from SSH config file are starting from Upper case but the sshtunnel spec
     sudo cp sshtunnel.service /etc/systemd/system/
     sudo systemctl daemon-reload
 
+## See also
+* [SystemD SSH client unit](https://gist.github.com/guettli/31242c61f00e365bbf5ed08d09cdc006#file-ssh-tunnel-service) based on SystemD templates. Configure port forwardings in the SSH config
