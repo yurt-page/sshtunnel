@@ -7,7 +7,7 @@ So basic documentation is same but implementation differ.
 Create `/etc/sshtunnel.config.sh` file and configure server and a tunnel:
 ```
 server "srv_us"
-  Host="srv.us"
+  HostName="srv.us"
   User="root"
   IdentityFile="/root/.ssh/id_ed25519"
 
@@ -35,7 +35,7 @@ The file is a DSL over a plain shell script.
 ### Supported options
 
 * `server` specify SSH server options. One server may have multiple tunnels.
-  * `Host` required
+  * `HostName` IP or domain. Required
   * `User` default `root`
   * `Port` 
   * `IdentityFile` you better to specify. If empty then will try `/root/.ssh/id_rsa`, then `/root/.ssh/id_ed25519`

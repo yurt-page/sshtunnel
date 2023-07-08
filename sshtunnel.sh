@@ -8,8 +8,8 @@ _end_section() {
   num=$((num+=1))
   case $last_section_type in
     "S")
-      [ -z "$Host" ] && >&2 echo "server $section: no Host" && return 1
-      local ARGS="$Host"
+      [ -z "$HostName" ] && >&2 echo "server $section: no HostName" && return 1
+      local ARGS="$HostName"
       [ -n "$User" ] && ARGS="$User@$ARGS"
       [ -n "$Port" ] && ARGS="$ARGS -p $Port "
       [ -n "$IdentityFile" ] && ARGS="$ARGS -i $IdentityFile"
@@ -53,7 +53,7 @@ _end_section() {
       >&2 echo "unknown $last_section_type"
       ;;
   esac
-  Host=""
+  HostName=""
   User=""
   Port=""
   IdentityFile=""

@@ -1,11 +1,11 @@
 server "example1"
-  Host="example.com"
+  HostName="example.com"
   Port=1
   User="root"
   IdentityFile="/root/.ssh/id_ed25519"
 
 server "example2"
-  Host="example.com"
+  HostName="example.com"
   Port=2
   User="root"
   IdentityFile="/root/.ssh/id_rsa"
