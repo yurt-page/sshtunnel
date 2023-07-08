@@ -19,33 +19,33 @@ _end_section() {
       servers="$servers $section"
       ;;
     "R")
-      [ -z "$Server" ] && >&2 echo "tunnelR $section: no Server" && return 1
-      [ -z "$RemoteAddress" ] && >&2 echo "tunnelR $section: no RemoteAddress" && return 1
-      [ -z "$RemotePort" ] && >&2 echo "tunnelR $section: no RemotePort" && return 1
-      [ -z "$LocalAddress" ] && >&2 echo "tunnelR $section: no LocalAddress" && return 1
-      [ -z "$LocalPort" ] && >&2 echo "tunnelR $section: no LocalPort" && return 1
-      printf "%s" " -R $RemoteAddress:$RemotePort:$LocalAddress:$LocalPort" > "/tmp/sshtunnel-$Server-R-$num"
+      [ -z "$servername" ] && >&2 echo "tunnelR $section: no servername" && return 1
+      [ -z "$remoteaddress" ] && >&2 echo "tunnelR $section: no remoteaddress" && return 1
+      [ -z "$remoteport" ] && >&2 echo "tunnelR $section: no remoteport" && return 1
+      [ -z "$localaddress" ] && >&2 echo "tunnelR $section: no localaddress" && return 1
+      [ -z "$localport" ] && >&2 echo "tunnelR $section: no localport" && return 1
+      printf "%s" " -R $remoteaddress:$remoteport:$localaddress:$localport" > "/tmp/sshtunnel-$servername-R-$num"
       ;;
     "L")
-      [ -z "$Server" ] && >&2 echo "tunnelL $section: no Server" && return 1
-      [ -z "$RemoteAddress" ] && >&2 echo "tunnelL $section: no RemoteAddress" && return 1
-      [ -z "$RemotePort" ] && >&2 echo "tunnelL $section: no RemotePort" && return 1
-      [ -z "$LocalAddress" ] && >&2 echo "tunnelL $section: no LocalAddress" && return 1
-      [ -z "$LocalPort" ] && >&2 echo "tunnelL $section: no LocalPort" && return 1
-      printf "%s" " -L $LocalAddress:$LocalPort:$RemoteAddress:$RemotePort" > "/tmp/sshtunnel-$Server-L-$num"
+      [ -z "$servername" ] && >&2 echo "tunnelL $section: no servername" && return 1
+      [ -z "$remoteaddress" ] && >&2 echo "tunnelL $section: no remoteaddress" && return 1
+      [ -z "$remoteport" ] && >&2 echo "tunnelL $section: no remoteport" && return 1
+      [ -z "$localaddress" ] && >&2 echo "tunnelL $section: no localaddress" && return 1
+      [ -z "$localport" ] && >&2 echo "tunnelL $section: no localport" && return 1
+      printf "%s" " -L $localaddress:$localport:$remoteaddress:$remoteport" > "/tmp/sshtunnel-$servername-L-$num"
       ;;
     "D")
-      [ -z "$Server" ] && >&2 echo "tunnelD $section: no Server" && return 1
-      [ -z "$LocalAddress" ] && >&2 echo "tunnelD $section: no LocalAddress" && return 1
-      [ -z "$LocalPort" ] && >&2 echo "tunnelD $section: no LocalPort" && return 1
-      printf "%s" " -D $LocalAddress:$LocalPort" > "/tmp/sshtunnel-$Server-D-$num"
+      [ -z "$servername" ] && >&2 echo "tunnelD $section: no servername" && return 1
+      [ -z "$localaddress" ] && >&2 echo "tunnelD $section: no localaddress" && return 1
+      [ -z "$localport" ] && >&2 echo "tunnelD $section: no localport" && return 1
+      printf "%s" " -D $localaddress:$localport" > "/tmp/sshtunnel-$servername-D-$num"
       ;;
     "W")
-      [ -z "$Server" ] && >&2 echo "tunnelW $section: no Server" && return 1
-      [ -z "$vpntype" ] && >&2 echo "tunnelW $section: no vpntype" && return 1
+      [ -z "$servername" ] && >&2 echo "tunnelW $section: no servername" && return 1
+      [ -z "$Tunnel" ] && >&2 echo "tunnelW $section: no Tunnel" && return 1
       [ -z "$localdev" ] && >&2 echo "tunnelW $section: no localdev" && return 1
       [ -z "$remotedev" ] && >&2 echo "tunnelW $section: no remotedev" && return 1
-      printf "%s" " -o Tunnel=$vpntype -w $localdev:$remotedev" > "/tmp/sshtunnel-$Server-W-$num"
+      printf "%s" " -o Tunnel=$Tunnel -w $localdev:$remotedev" > "/tmp/sshtunnel-$servername-W-$num"
       ;;
     "")
       ;;
@@ -58,12 +58,12 @@ _end_section() {
   Port=""
   IdentityFile=""
   StrictHostKeyChecking=""
-  Server=""
-  RemoteAddress=""
-  RemotePort=""
-  LocalAddress=""
-  LocalPort=""
-  vpntype=""
+  servername=""
+  remoteaddress=""
+  remoteport=""
+  localaddress=""
+  localport=""
+  Tunnel=""
   localdev=""
   remotedev=""
   return 0

@@ -12,26 +12,26 @@ server "example2"
   StrictHostKeyChecking=yes
 
 tunnelR "http1"
-  Server="example1"
-  RemoteAddress="domain1"
-  RemotePort=80
-  LocalAddress="127.0.0.1"
-  LocalPort=8080
+  servername="example1"
+  remoteaddress="domain1"
+  remoteport=80
+  localaddress="127.0.0.1"
+  localport=8080
 
 tunnelL
-  Server="example1"
-  LocalAddress="127.0.0.2"
-  LocalPort=8080
-  RemoteAddress="domain2"
-  RemotePort=80
+  servername="example1"
+  localaddress="127.0.0.2"
+  localport=8080
+  remoteaddress="domain2"
+  remoteport=80
 
 tunnelD
-  Server="example2"
-  LocalAddress="127.0.0.3"
-  LocalPort=8080
+  servername="example2"
+  localaddress="127.0.0.3"
+  localport=8080
 
 tunnelW
-  Server="example2"
-  vpntype="point-to-point"
+  servername="example2"
+  Tunnel="point-to-point"
   localdev="any"
   remotedev="any"
