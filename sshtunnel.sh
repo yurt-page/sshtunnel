@@ -42,9 +42,9 @@ _end_section() {
       ;;
     "W")
       [ -z "$servername" ] && >&2 echo "tunnelW $section: no servername" && return 1
-      [ -z "$Tunnel" ] && >&2 echo "tunnelW $section: no Tunnel" && return 1
-      [ -z "$localdev" ] && >&2 echo "tunnelW $section: no localdev" && return 1
-      [ -z "$remotedev" ] && >&2 echo "tunnelW $section: no remotedev" && return 1
+      Tunnel="${Tunnel:-point-to-point}"
+      localdev="${localdev:-any}"
+      remotedev="${remotedev:-any}"
       printf "%s" " -o Tunnel=$Tunnel -w $localdev:$remotedev" > "/tmp/sshtunnel-$servername-W-$num"
       ;;
     "")
