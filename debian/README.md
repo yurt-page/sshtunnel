@@ -26,6 +26,5 @@ Go to https://code.launchpad.net/~stokito/+git/sshtunnel
 Create packaging recipe
 
 Use an existing PPA: utils
-Default distribution series: select all
-
-Run build
+Default distribution series: select first two-four
+Run build by clicking on "Request build(s)"
