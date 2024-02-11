@@ -122,7 +122,7 @@ For Ubuntu use [PPA repository](https://code.launchpad.net/~stokito/+archive/ubu
 
 Or install by downloading the package:
 
-    wget -O /tmp/sshtunnel https://github.com/yurt-page/sshtunnel/releases/download/v1.0.0/sshtunnel_1.0.0_all.deb
+    wget -O /tmp/sshtunnel https://github.com/yurt-page/sshtunnel/releases/download/v1.0.2/sshtunnel_1.0.0_all.deb
     sudo dpkg -i /tmp/sshtunnel
     rm -f /tmp/sshtunnel
 
