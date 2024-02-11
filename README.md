@@ -120,7 +120,11 @@ For Ubuntu use [PPA repository](https://code.launchpad.net/~stokito/+archive/ubu
     sudo apt update
     sudo apt install sshtunnel
 
-Or install a downloaded package with `dpkg -i sshtunnel_*.deb`
+Or install by downloading the package:
+
+    wget -O /tmp/sshtunnel https://github.com/yurt-page/sshtunnel/releases/download/v1.0.0/sshtunnel_1.0.0_all.deb
+    sudo dpkg -i /tmp/sshtunnel
+    rm -f /tmp/sshtunnel
 
 ### From sources
 
