@@ -14,6 +14,7 @@ _clean_vars() {
   ServerAliveInterval="30"
   ServerAliveCountMax="2"
   ConnectionAttempts="10"
+  BatchMode="yes"
   servername=""
   remoteaddress=""
   remoteport=""
@@ -32,7 +33,7 @@ _end_section() {
   case $last_section_type in
     "S")
       [ -z "$HostName" ] && >&2 echo "server $section: no HostName" && return 1
-      local args="$HostName ${Port:+-p $Port} ${User:+-l $User} ${IdentityFile:+-i $IdentityFile} -o StrictHostKeyChecking=${StrictHostKeyChecking} -o ServerAliveInterval=${ServerAliveInterval} -o ServerAliveCountMax=${ServerAliveCountMax} -o ConnectionAttempts=${ConnectionAttempts}"
+      local args="$HostName ${Port:+-p $Port} ${User:+-l $User} ${IdentityFile:+-i $IdentityFile} -o StrictHostKeyChecking=${StrictHostKeyChecking} -o ServerAliveInterval=${ServerAliveInterval} -o ServerAliveCountMax=${ServerAliveCountMax} -o ConnectionAttempts=${ConnectionAttempts} -o BatchMode=${BatchMode}"
       printf "%s" "$args" > "/tmp/sshtunnel-$section"
       servers="$servers $section"
       ;;
@@ -126,7 +127,7 @@ _ssh_connect() {
   do
     echo >&2 "connect to $server: ssh $ssh_cmd_args"
     local t0=$(date +%s)
-    ssh $ssh_cmd_args -N -o ExitOnForwardFailure=yes -o BatchMode=yes
+    ssh $ssh_cmd_args -N -o ExitOnForwardFailure=yes
     local exit_code="$?"
     # Reconnect immediately when the connection was lost, but wait for a minute if ssh was terminating just recently
     local t1=$(date +%s)
