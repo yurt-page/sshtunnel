@@ -24,11 +24,11 @@ uninstall_all: uninstall
 	systemctl stop sshtunnel
 	systemctl daemon-reload
 
-service_restart:
+restart:
 	cp sshtunnel.sh /usr/bin/sshtunnel
 	systemctl restart sshtunnel
-	systemctl --no-pager status sshtunnel
+	systemctl --no-pager -l status sshtunnel
 	journalctl -u sshtunnel -f -n 0
 
-service_stop:
+stop:
 	systemctl stop sshtunnel

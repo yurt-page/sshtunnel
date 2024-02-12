@@ -132,8 +132,9 @@ Or install by downloading the package:
     cd sshtunnel
     # install files, service and reload systemd services    
     sudo make install_all
-    # reload and test after changes
-    sudo make service_restart
+    # reload to test after changes
+    sudo make restart
+    sudo make stop
 
 ### Manual
 
