@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck shell=dash
 last_section_type=""
 num=0
 servers=""
@@ -125,10 +126,13 @@ _ssh_connect() {
   while :
   do
     echo >&2 "connect to $server: ssh $ssh_cmd_args"
+    # shellcheck disable=SC2155
     local t0=$(date +%s)
+    # shellcheck disable=SC2086
     ssh $ssh_cmd_args -N -o ExitOnForwardFailure=yes -o BatchMode=yes
     local exit_code="$?"
     # Reconnect immediately when the connection was lost, but wait for a minute if ssh was terminating just recently
+    # shellcheck disable=SC2155
     local t1=$(date +%s)
     local uptime="$((t1 - t0))"
     local delay=0
@@ -147,9 +151,10 @@ _start_server_connections() {
   [ "$num" = "0" ] && >&2 echo "no ssh tunnels configured" && return 1
   for server in $servers
   do
-    local args="$(cat /tmp/sshtunnel-$server-*)"
+    # shellcheck disable=SC2155
+    local args=$(cat /tmp/sshtunnel-"$server"-*)
     if [ -n "$args" ]; then
-      args="$(cat /tmp/sshtunnel-$server) $args"
+      args="$(cat /tmp/sshtunnel-"$server") $args"
       _ssh_connect "$server" "$args" &
     else
       >&2 echo "server $server: no tunnels"
@@ -160,7 +165,7 @@ _start_server_connections() {
 _start_hosts_connections() {
   [ -r /root/.ssh/config ] || return 1
   >&2 echo "load from /root/.ssh/config"
-  ssh_conf_hosts=$(grep Host.*_tun$ /root/.ssh/config | cut -d' ' -f2)
+  ssh_conf_hosts=$(grep 'Host.*_tun$' /root/.ssh/config | cut -d' ' -f2)
   for server in $ssh_conf_hosts
   do
     _ssh_connect "$server" "$server" &
