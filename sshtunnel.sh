@@ -129,7 +129,7 @@ _ssh_connect() {
     # shellcheck disable=SC2155
     local t0=$(date +%s)
     # shellcheck disable=SC2086
-    ssh $ssh_cmd_args -N -o ExitOnForwardFailure=yes -o BatchMode=yes
+    ssh $ssh_cmd_args -N -o ExitOnForwardFailure=yes -o BatchMode=yes -o GlobalKnownHostsFile=/root/.ssh/providers_known_hosts
     local exit_code="$?"
     # Reconnect immediately when the connection was lost, but wait for a minute if ssh was terminating just recently
     # shellcheck disable=SC2155
