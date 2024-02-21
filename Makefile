@@ -20,7 +20,7 @@ reload_service:
 uninstall:
 	rm -f ${DESTDIR}/usr/bin/sshtunnel
 	rm -f ${DESTDIR}/usr/lib/systemd/system/sshtunnel.service
-	rm -f ${DESTDIR}/etc/systemd/system/sshtunnel.service
+	rm -f ${DESTDIR}/usr/share/sshtunnel/providers_known_hosts
 
 uninstall_all: uninstall
 	systemctl stop sshtunnel
