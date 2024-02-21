@@ -48,6 +48,11 @@ Then restart with `systemctl restart sshtunnel` and check status with `systemctl
 
 If no any tunnel specified the sshtunnel stops and a service won't be running unless you restart it.
 
+> [!IMPORTANT]
+> Your host must be exactly like `Host router_tun` e.g. with a space after `Host` and nothing after `_tun`.
+> I.e. `Host      router_tun # tunnel` won't work.
+> If you want to disable it then change suffix e.g. `Host router_tun_disabled`
+
 
 ### Configure ~/.ssh/sshtunnel.config.sh
 
@@ -147,4 +152,6 @@ Or install by downloading the package:
 * [SystemD SSH client unit](https://gist.github.com/guettli/31242c61f00e365bbf5ed08d09cdc006#file-ssh-tunnel-service) based on SystemD templates. Configure port forwardings in the SSH config
 * [OpenWrt sshtunnel](https://openwrt.org/docs/guide-user/services/ssh/sshtunnel) for a router. This project is a port of the sshtunnel.
 * [NetworkManager SSH plugin](https://github.com/danfruehauf/NetworkManager-ssh) 
+* [srv.us SystemdD runner](https://github.com/pcarrier/srv.us/blob/main/systemd.md)
+* [localhost.run SystemdD runner](https://github.com/localhost-run/client-service)
 
