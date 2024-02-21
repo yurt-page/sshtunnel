@@ -1,3 +1,10 @@
+sshtunnel (1.1.0) stable; urgency=medium
+
+  * Run systemd service as a user
+  * Include hostkeys of public SSH tunnel providers
+
+ -- Sergey Ponomarev <stokito@gmail.com>  Wed, 21 Feb 2024 22:00:00 +0200
+
 sshtunnel (1.0.0) stable; urgency=medium
 
   * systemd service
