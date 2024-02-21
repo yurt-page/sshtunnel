@@ -3,8 +3,8 @@ clean:
 install:
 	cp sshtunnel.sh ${DESTDIR}/usr/bin/sshtunnel
 	chmod +x ${DESTDIR}/usr/bin/sshtunnel
-	mkdir -p ${DESTDIR}/usr/lib/systemd/system/
-	cp sshtunnel.service ${DESTDIR}/usr/lib/systemd/system/
+	mkdir -p ${DESTDIR}/usr/lib/systemd/user/
+	cp sshtunnel.service ${DESTDIR}/usr/lib/systemd/user/
 	mkdir -p ${DESTDIR}/root/.ssh/
 	cp sshtunnel.config.sh ${DESTDIR}/root/.ssh/
 	mkdir -p ${DESTDIR}/usr/share/sshtunnel/
@@ -19,7 +19,7 @@ reload_service:
 
 uninstall:
 	rm -f ${DESTDIR}/usr/bin/sshtunnel
-	rm -f ${DESTDIR}/usr/lib/systemd/system/sshtunnel.service
+	rm -f ${DESTDIR}/usr/lib/systemd/user/sshtunnel.service
 	rm -f ${DESTDIR}/usr/share/sshtunnel/providers_known_hosts
 
 uninstall_all: uninstall
