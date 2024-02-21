@@ -5,6 +5,9 @@ num=0
 servers=""
 rm -f /tmp/sshtunnel-*
 
+HOME=${HOME:-/root}
+echo HOME=$HOME
+
 _clean_vars() {
   enabled="1"
   HostName=""
@@ -143,10 +146,10 @@ _ssh_connect() {
 }
 
 _start_server_connections() {
-  [ -r /root/.ssh/sshtunnel.config.sh ] || return 1
-  >&2 echo "load from /root/.ssh/sshtunnel.config.sh"
+  [ -r "$HOME/.ssh/sshtunnel.config.sh" ] || return 1
+  >&2 echo "load from $HOME/.ssh/sshtunnel.config.sh"
   _clean_vars
-  . /root/.ssh/sshtunnel.config.sh
+  . "$HOME/.ssh/sshtunnel.config.sh"
   _end_section
   [ "$num" = "0" ] && >&2 echo "no ssh tunnels configured" && return 1
   for server in $servers
@@ -163,9 +166,9 @@ _start_server_connections() {
 }
 
 _start_hosts_connections() {
-  [ -r /root/.ssh/config ] || return 1
-  >&2 echo "load from /root/.ssh/config"
-  ssh_conf_hosts=$(grep 'Host.*_tun$' /root/.ssh/config | cut -d' ' -f2)
+  [ -r "$HOME/.ssh/config" ] || return 1
+  >&2 echo "load from $HOME/.ssh/config"
+  ssh_conf_hosts=$(grep 'Host.*_tun$' "$HOME/.ssh/config" | cut -d' ' -f2)
   for server in $ssh_conf_hosts
   do
     _ssh_connect "$server" "$server" &
