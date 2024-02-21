@@ -7,7 +7,8 @@ install:
 	cp sshtunnel.service ${DESTDIR}/usr/lib/systemd/system/
 	mkdir -p ${DESTDIR}/root/.ssh/
 	cp sshtunnel.config.sh ${DESTDIR}/root/.ssh/
-	cp providers_known_hosts ${DESTDIR}/root/.ssh/
+	mkdir -p ${DESTDIR}/usr/share/sshtunnel/
+	cp providers_known_hosts ${DESTDIR}/usr/share/sshtunnel/providers_known_hosts
 
 install_all: install reload_service
 
