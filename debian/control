@@ -3,6 +3,9 @@ Section: net
 Priority: optional
 Maintainer: Sergey Ponomarev <stokito@gmail.com>
 Homepage: https://github.com/yurt-page/sshtunnel
+Vcs-Git: https://github.com/yurt-page/sshtunnel.git
+Vcs-Browser: https://github.com/yurt-page/sshtunnel
+Bugs: https://github.com/yurt-page/sshtunnel/issues
 Build-Depends: debhelper (>=10)
 Standards-Version: 4.1.4
 Rules-Requires-Root: no
