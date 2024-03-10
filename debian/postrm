@@ -1,10 +1,6 @@
 #!/bin/sh
 set -e
-if [ "$1" = "remove" ] && [ -d /run/systemd/system ] ; then
-	systemctl --system daemon-reload >/dev/null || true
-fi
-if [ "$1" = "purge" ]; then
-	if [ -x /usr/bin/deb-systemd-helper ]; then
-		deb-systemd-helper purge sshtunnel.service >/dev/null || true
-	fi
+if [ "$1" = "remove" ]; then
+	echo postrm deb-systemd-invoke --user daemon-reload
+	deb-systemd-invoke --user daemon-reload >/dev/null || true
 fi
