@@ -146,5 +146,6 @@ Or install by downloading the package:
 ## See also
 * [SystemD SSH client unit](https://gist.github.com/guettli/31242c61f00e365bbf5ed08d09cdc006#file-ssh-tunnel-service) based on SystemD templates. Configure port forwardings in the SSH config
 * [OpenWrt sshtunnel](https://openwrt.org/docs/guide-user/services/ssh/sshtunnel) for a router. This project is a port of the sshtunnel.
-* [NetworkManager SSH plugin](https://github.com/danfruehauf/NetworkManager-ssh) 
+* [NetworkManager SSH plugin](https://github.com/danfruehauf/NetworkManager-ssh)
+* [python3-sshtunnel](https://github.com/pahaz/sshtunnel) - a Python tool to start an SSH tunnel 
 
