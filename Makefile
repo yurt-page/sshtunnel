@@ -1,6 +1,7 @@
 clean:
 
 install:
+	mkdir -p ${DESTDIR}/usr/bin/
 	cp sshtunnel.sh ${DESTDIR}/usr/bin/sshtunnel
 	chmod +x ${DESTDIR}/usr/bin/sshtunnel
 	mkdir -p ${DESTDIR}/usr/lib/systemd/user/

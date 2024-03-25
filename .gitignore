@@ -1,4 +1,5 @@
 /debian/sshtunnel/
+/debian/tmp/
 /debian/debhelper-build-stamp
 /debian/.debhelper/generated/
 /debian/files
