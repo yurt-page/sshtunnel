@@ -11,20 +11,46 @@ There are [a few of services that provides free or cheap tunnels](https://github
 e.g. https://localhost.run, https://srv.us etc. 
 
 
+## Installation
+
+### Debian/Ubuntu
+
+For Ubuntu use [PPA repository](https://code.launchpad.net/~stokito/+archive/ubuntu/utils):
+
+    sudo add-apt-repository ppa:stokito/utils
+    sudo apt update
+    sudo apt install sshtunnel
+
+Or install by downloading the package:
+
+    wget -O /tmp/sshtunnel https://github.com/yurt-page/sshtunnel/releases/download/v1.2.0/sshtunnel_1.2.0_all.deb
+    sudo dpkg -i /tmp/sshtunnel
+    rm -f /tmp/sshtunnel
+
+### From sources for development
+
+    git clone git@github.com:yurt-page/sshtunnel.git
+    cd sshtunnel
+    # install files, service and reload systemd services    
+    sudo make install_all
+    # reload to test after changes
+    sudo make restart
+    sudo make stop
+
+
 ## Usage
 
 ### Set keys
 To configure server and a tunnel you need to set up the SSH key for the server.
-The sshtunnel is run by a `root` user. So you need to configure keys in its `/root/.ssh/` folder.
-Let's ensure that it's exists with `sudo mkdir /root/.ssh/`.
-You can generate a new key with a command `sudo ssh-keygen`.
-Or you can copy your existing keys `sudo cp ~/.ssh/id_* /root/.ssh/`.
+The sshtunnel is runed under your user. So you need to configure keys in home directory `~/.ssh/`.
+You can generate a new key with a command `ssh-keygen`.
 
-Also add a host key to `/root/.ssh/known_hosts` or use `StrictHostKeyChecking accept-new` bellow.
+Also add an SSH server's host key to `~/.ssh/known_hosts` or use `StrictHostKeyChecking accept-new` bellow.
+The step is not needed for [known SSH tunnel providers](https://github.com/yurt-page/sshtunnel/blob/master/providers_known_hosts).
 
 ### Configure ~/.ssh/config
 When the `sshtunnel` starts it reads `~/.ssh/config` finds all hosts that ends with `_tun` e.g. `Host router_tun` and starts an ssh connection to the host.
-So edit the `sudo -e /root/.ssh/config` by this example:
+So edit the `~/.ssh/config` by this example:
 
 ```sh
 Host router_tun
@@ -44,7 +70,7 @@ Host router_tun
 
 The sshtunnel will also add `-N -o ExitOnForwardFailure=yes -o BatchMode=yes` options when starting the ssh connection.
 
-Then restart with `systemctl restart sshtunnel` and check status with `systemctl status sshtunnel`.
+Then restart with `systemctl --user restart sshtunnel` and check status with `systemctl --user status sshtunnel`.
 
 If no any tunnel specified the sshtunnel stops and a service won't be running unless you restart it.
 
@@ -56,16 +82,15 @@ If no any tunnel specified the sshtunnel stops and a service won't be running un
 
 ### Configure ~/.ssh/sshtunnel.config.sh
 
-Another configuration file is `/root/.ssh/sshtunnel.config.sh`.
+Another configuration file is `~/.ssh/sshtunnel.config.sh`.
 The file is a DSL over a plain shell script. It may be more expressive but has fewer options.
 
-Edit the config file with `sudo -e /root/.ssh/sshtunnel.config.sh` e.g.:
+Edit the config file `~/.ssh/sshtunnel.config.sh` e.g.:
 
 ```sh
 server "srv_us"
   HostName="srv.us"
   User="root"
-  IdentityFile="/root/.ssh/id_ed25519"
 
 tunnelR "srv_us_http"
   servername="srv_us"
@@ -85,7 +110,7 @@ See [sshtunnel.config.sh](./sshtunnel.config.sh) for more samples.
   * `HostName` IP, domain or Host configured in `~/.ssh/config`. Required.
   * `User` default is a user that started the sshtunnel service i.e. `root`. You better to create a separate limited user on the server.
   * `Port` default `22`.
-  * `IdentityFile` an absolute path to a private key. If empty then the ssh will try `/root/.ssh/id_rsa`, then `/root/.ssh/id_ed25519` etc. Set it only if name is non-standard.
+  * `IdentityFile` an absolute path to a private key. If empty then the ssh will try `~/.ssh/id_rsa`, then `~/.ssh/id_ed25519` etc. Set it only if name is non-standard.
   * `StrictHostKeyChecking` default `accept-new`. If you are afraid that server can change it in future then set to `no` to your own risk.
   * `ServerAliveInterval` default `30`.
   * `ServerAliveCountMax` default `2`.
@@ -108,45 +133,13 @@ If you need more options e.g. `ProxyJump` then specify them in `~/.ssh/config`.
 
 Check that ssh has been started with `ps ax | grep ssh` e.g.:
 
-    ssh root@srv.us -i /root/.ssh/id_ed25519 -o StrictHostKeyChecking=accept-new -R 1:80:127.0.0.1:8080 -N -o ExitOnForwardFailure=yes -o BatchMode=yes
+    ssh root@srv.us -R 1:80:127.0.0.1:8080 -N -o ExitOnForwardFailure=yes -o BatchMode=yes
 
 To read logs use:
 
-    sudo journalctl -u sshtunnel -f -n 50
+    journalctl --user-unit sshtunnel -f -n 50
 
 
-## Installation
-
-### Debian/Ubuntu
-
-For Ubuntu use [PPA repository](https://code.launchpad.net/~stokito/+archive/ubuntu/utils):
-
-    sudo add-apt-repository ppa:stokito/utils
-    sudo apt update
-    sudo apt install sshtunnel
-
-Or install by downloading the package:
-
-    wget -O /tmp/sshtunnel https://github.com/yurt-page/sshtunnel/releases/download/v1.0.2/sshtunnel_1.0.0_all.deb
-    sudo dpkg -i /tmp/sshtunnel
-    rm -f /tmp/sshtunnel
-
-### From sources
-
-    git clone git@github.com:yurt-page/sshtunnel.git
-    cd sshtunnel
-    # install files, service and reload systemd services    
-    sudo make install_all
-    # reload to test after changes
-    sudo make restart
-    sudo make stop
-
-### Manual
-
-    sudo cp sshtunnel.sh /usr/bin/sshtunnel
-    sudo chmod +x /usr/bin/sshtunnel
-    sudo cp sshtunnel.service /etc/systemd/system/
-    sudo systemctl daemon-reload
 
 ## See also
 * [SystemD SSH client unit](https://gist.github.com/guettli/31242c61f00e365bbf5ed08d09cdc006#file-ssh-tunnel-service) based on SystemD templates. Configure port forwardings in the SSH config
