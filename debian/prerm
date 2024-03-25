@@ -1,9 +1,0 @@
-#!/bin/sh
-set -e
-if [ -z "${DPKG_ROOT:-}" ] && [ "$1" = "remove" ]; then
-	echo prerm deb-systemd-invoke --user stop sshtunnel.service
-	# we can't stop service for all users but at least for the current user which should cover 99% usages
-	deb-systemd-invoke --user stop sshtunnel.service >/dev/null || true
-	echo prerm systemctl --global disable sshtunnel.service
-	systemctl --global disable sshtunnel.service >/dev/null || true
-fi

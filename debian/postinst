@@ -1,7 +1,0 @@
-#!/bin/sh
-set -e
-if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
-	deb-systemd-invoke --user daemon-reload >/dev/null || true
-	systemctl --global enable /usr/lib/systemd/user/sshtunnel.service >/dev/null || true
-	deb-systemd-invoke --user restart sshtunnel.service >/dev/null || true
-fi
