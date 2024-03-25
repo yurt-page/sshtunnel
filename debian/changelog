@@ -3,7 +3,7 @@ sshtunnel (1.2.0) stable; urgency=medium
   * Install systemd service as a user
   * Include hostkeys of public SSH tunnel providers
 
- -- Sergey Ponomarev <stokito@gmail.com>  Sun, 10 mar 2024 15:20:00 +0200
+ -- Sergey Ponomarev <stokito@gmail.com>  Sun, 10 Mar 2024 15:20:00 +0200
 
 sshtunnel (1.1.0) stable; urgency=medium
 
