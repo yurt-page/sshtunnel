@@ -143,8 +143,13 @@ To read logs use:
 
 ## See also
 * [SystemD SSH client unit](https://gist.github.com/guettli/31242c61f00e365bbf5ed08d09cdc006#file-ssh-tunnel-service) based on SystemD templates. Configure port forwardings in the SSH config
-* [OpenWrt sshtunnel](https://openwrt.org/docs/guide-user/services/ssh/sshtunnel) for a router. This project is a port of the sshtunnel.
+* [OpenWrt sshtunnel](https://openwrt.org/docs/guide-user/services/ssh/sshtunnel) for a router with OpenWrt firmware. You can setup it as a SOCKS for simplicity.
 * [NetworkManager SSH plugin](https://github.com/danfruehauf/NetworkManager-ssh)
 * [srv.us SystemdD runner](https://github.com/pcarrier/srv.us/blob/main/systemd.md)
 * [localhost.run SystemdD runner](https://github.com/localhost-run/client-service)
-* [python3-sshtunnel](https://github.com/pahaz/sshtunnel) - a Python tool to start an SSH tunnel 
+* [python3-sshtunnel](https://github.com/pahaz/sshtunnel) - a Python tool to start an SSH tunnel
+* [jfifield/sshtunnel](https://github.com/jfifield/sshtunnel) - a GUI SSH tunnel manager in Java
+* [shyim/tunnelmanager](https://github.com/shyim/tunnelmanager) - a Qt GUI SSH tunnel manager in CPP
+* [mjun/gnome-connection-manager](https://github.com/mjun/gnome-connection-manager) - a rich GUI in Python.
+* [Gnome SSH Tunnel Manager (gSTM)](https://github.com/Intika-Linux-SSH/SSH-Tunnel-Manager-Py) - a GUI in Python.
+* [sshuttle](https://github.com/sshuttle/sshuttle) - a popular transparent proxy server that works as a poor man's VPN over SSH. Doesn't require admin. Supports DNS tunneling.
