@@ -46,6 +46,7 @@ The sshtunnel is runed under your user. So you need to configure keys in home di
 You can generate a new key with a command `ssh-keygen`.
 
 Also add an SSH server's host key to `~/.ssh/known_hosts` or use `StrictHostKeyChecking accept-new` bellow.
+But it would be simpler to just ssh manually into the server and it will be remembered.
 The step is not needed for [known SSH tunnel providers](https://github.com/yurt-page/sshtunnel/blob/master/providers_known_hosts).
 
 ### Configure ~/.ssh/config
