@@ -1,8 +1,8 @@
 /debian/sshtunnel/
 /debian/tmp/
 /debian/debhelper-build-stamp
-/debian/.debhelper/generated/
+/debian/.debhelper/
 /debian/files
-/debian/sshtunnel.postinst.debhelper
-/debian/sshtunnel.postrm.debhelper
-/debian/sshtunnel.substvars
+/debian/*.debhelper
+/debian/*.debhelper.log
+/debian/*.substvars
