@@ -3,7 +3,7 @@ name: Build .deb package
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - 'v*'
 
 jobs:
   build:
