@@ -1,0 +1,36 @@
+name: Build .deb package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: sshtunnel/
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install devscripts build-essential lintian debhelper-compat debhelper
+
+      - name: Build package
+        run: |
+          cd sshtunnel/
+          export DEBFULLNAME=CI
+          export DEBEMAIL=autobuild@invalid
+          export GITVERSION=$(git describe --tags)
+          DEBVERSION="${GITVERSION#v}"
+          export DEBVERSION="${DEBVERSION%-*}" # remove git hash 
+          dch -v "$DEBVERSION" "Autobuild of $GITVERSION"
+          dpkg-buildpackage -b -us -uc
+
+      - name: Upload the built deb package
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb
+          path: '*.deb'
